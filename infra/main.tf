@@ -8,3 +8,12 @@ module "vpc" {
   azs = var.azs
   cluster_name = var.cluster_name
 }
+
+module "eks" {
+  source = "./modules/eks"
+
+  subnet_ids = module.vpc.private_subnets
+  project_name = var.project_name
+  cluster_name = var.cluster_name
+
+}
