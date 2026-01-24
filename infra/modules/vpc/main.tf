@@ -1,17 +1,3 @@
-# VPC module
-
-# 2 AZs, 2 public + 2 private subnets
-
-# IGW, NAT GW (one is fine for the assignment), public route tables + private route tables
-
-# Required EKS subnet tags:
-
-# kubernetes.io/cluster/<cluster-name> = shared
-
-# Public subnets: kubernetes.io/role/elb = 1
-
-# Private subnets: kubernetes.io/role/internal-elb = 1
-
 resource "aws_vpc" "main" {
   cidr_block       = var.cidr_block
 
@@ -24,7 +10,7 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "public" {
-  for_each = var.public_subnets //[public-a, public-b]
+  for_each = var.public_subnets
 
   vpc_id                  = aws_vpc.main.id
   cidr_block              = each.value.cidr_block 
