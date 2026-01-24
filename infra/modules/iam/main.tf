@@ -1,7 +1,6 @@
 resource "aws_eks_addon" "pod_identity" {
   cluster_name = var.cluster_name
   addon_name   = "eks-pod-identity-agent"
-  depends_on   = [aws_eks_node_group.main]
 }
 
 data "aws_iam_policy_document" "assume_role" {

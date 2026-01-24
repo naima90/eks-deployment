@@ -27,3 +27,7 @@ variable "private_subnets" {
     az_index   = number
   }))
 }
+
+variable "cluster_name" {
+  type = string
+}
