@@ -1,8 +1,8 @@
 resource "aws_vpc" "main" {
-  cidr_block       = var.cidr_block
+  cidr_block = var.cidr_block
 
   enable_dns_hostnames = true
- 
+
 
   tags = {
     Name = "${var.project_name}-vpc"
@@ -13,7 +13,7 @@ resource "aws_subnet" "public" {
   for_each = var.public_subnets
 
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = each.value.cidr_block 
+  cidr_block              = each.value.cidr_block
   availability_zone       = var.azs[each.value.az_index]
   map_public_ip_on_launch = true
 
@@ -32,9 +32,9 @@ resource "aws_subnet" "public" {
 
 resource "aws_subnet" "private" {
   for_each = var.private_subnets
-  
-  vpc_id = aws_vpc.main.id
-  cidr_block = each.value.cidr_block
+
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = each.value.cidr_block
   availability_zone = var.azs[each.value.az_index]
 
   tags = merge(
@@ -45,7 +45,7 @@ resource "aws_subnet" "private" {
     {
       # EKS needs these for internal load balancers
       "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-      "kubernetes.io/role/internal-elb" = 1
+      "kubernetes.io/role/internal-elb"           = 1
     }
   )
 
@@ -70,7 +70,7 @@ resource "aws_eip" "nat_eip" {
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat_eip.id
 
-  subnet_id     = aws_subnet.public[sort(keys(aws_subnet.public))[0]].id
+  subnet_id = aws_subnet.public[sort(keys(aws_subnet.public))[0]].id
 
   tags = {
     Name = "${var.project_name}-nat"

@@ -1,13 +1,13 @@
 variable "region" {
-    type = string
+  type = string
 }
 
 variable "project_name" {
-    type = string
+  type = string
 }
 
 variable "cidr_block" {
-    type = string
+  type = string
 }
 
 variable "azs" {
@@ -22,8 +22,8 @@ variable "public_subnets" {
 }
 
 variable "private_subnets" {
-    type = map(object({
-      cidr_block = string
-      az_index = number
-    }))
+  type = map(object({
+    cidr_block = string
+    az_index   = number
+  }))
 }

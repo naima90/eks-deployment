@@ -2,17 +2,17 @@ resource "aws_eks_cluster" "main" {
   name = "${var.project_name}-cluster"
 
   access_config {
-    authentication_mode = "API"
+    authentication_mode                         = "API"
     bootstrap_cluster_creator_admin_permissions = true
   }
-   
+
   role_arn = aws_iam_role.eks_cluster_role.arn
   version  = var.cluster_version
 
 
-    vpc_config {
-    subnet_ids             = var.subnet_ids
-    endpoint_public_access = true
+  vpc_config {
+    subnet_ids              = var.subnet_ids
+    endpoint_public_access  = true
     endpoint_private_access = true
 
   }
@@ -52,7 +52,7 @@ resource "aws_eks_node_group" "main" {
   node_group_name = "${var.project_name}-node-group"
   node_role_arn   = aws_iam_role.eks_node_role.arn
   subnet_ids      = var.subnet_ids
-  version = var.cluster_version
+  version         = var.cluster_version
 
   scaling_config {
     desired_size = 2
@@ -77,9 +77,9 @@ resource "aws_iam_role" "eks_node_role" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
-      Effect = "Allow",
+      Effect    = "Allow",
       Principal = { Service = "ec2.amazonaws.com" },
-      Action = "sts:AssumeRole"
+      Action    = "sts:AssumeRole"
     }]
   })
 }
