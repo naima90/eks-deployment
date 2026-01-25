@@ -1,0 +1,12 @@
+provider: aws
+
+env: 
+- name: AWS_DEFAULT_REGION
+  value: "eu-west-2"
+
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::751434576197:role/eks-app-external-dns-role
+
+domainFilters:
+- lab.naimaosmann.com

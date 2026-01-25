@@ -5,6 +5,11 @@
       "Effect": "Allow",
       "Action": ["route53:ChangeResourceRecordSets", "route53:ListResourceRecordSets"],
       "Resource": ["arn:aws:route53:::hostedzone/Z0315154WU3KKSUXF4G5"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": "route53:ListHostedZones",
+      "Resource": "*"
     }
   ]
 }

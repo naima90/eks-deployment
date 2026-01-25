@@ -17,7 +17,29 @@ resource "helm_release" "cert_manager" {
   create_namespace = true
   namespace        = "cert-manager"
 
+  set = [ {
+    name = "crds.enabled"
+    value = "true"
+  } ]
 
+  depends_on = [helm_release.nginx]
 
-  depends_on = [helm_release.nginx_ingress]
+  values = [file("${path.module}/../../helm-values/cert-manager.yaml")]
+
 }
+
+resource "helm_release" "external_dns" {
+  name = "external-dns"
+
+  repository = "https://kubernetes-sigs.github.io/external-dns/"
+  chart      = "external-dns"
+
+  create_namespace = true
+  namespace        = "external-dns"
+  
+
+  values = [file("${path.module}/../../helm-values/external-dns.yaml")]
+
+
+}
+

@@ -27,3 +27,7 @@ module "iam" {
   depends_on = [module.eks]
 
 }
+
+module "helm" {
+  source = "./modules/helm"
+}
