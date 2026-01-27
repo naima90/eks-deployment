@@ -1,17 +1,11 @@
+configs:
+  params:
+    server.insecure: true
+
 server:
-  extraArgs:
-  - --insecure
   service:
     type: ClusterIP
+
   ingress:
     enabled: false
-    ingressClassName: nginx
-    annotations:
-      nginx.org/hosts: "false"
-      cert-manager.io/cluster-issuer: issuer
-    hosts:
-    - argocd.lab.naimaosmann.com
-    tls:
-    - secretName: argocd-ingress-tls
-      hosts:
-      - argocd.lab.naimaosmann.com
+
