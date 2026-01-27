@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server-ingress
+  namespace: argo-cd
+  annotations:
+    cert-manager.io/cluster-issuer: issuer
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - argocd.lab.naimaosmann.com
+      secretName: argocd-ingress-tls
+  rules:
+  - host: argocd.lab.naimaosmann.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: argocd-server
+            port:
+              name: https
+

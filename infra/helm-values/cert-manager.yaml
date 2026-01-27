@@ -1,3 +1,11 @@
-serviceAccount:
-  annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::751434576197:role/eks-app-cert-manager-role
+crds:
+  enabled: true
+
+replicaCount: 1
+
+# Helps avoid webhook issues on some clusters; optional but good practice
+webhook:
+  replicaCount: 1
+
+cainjector:
+  replicaCount: 1

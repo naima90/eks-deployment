@@ -17,10 +17,11 @@ resource "helm_release" "cert_manager" {
   create_namespace = true
   namespace        = "cert-manager"
 
-  set = [ {
-    name = "crds.enabled"
-    value = "true"
-  } ]
+  atomic  = true
+  wait    = true
+  timeout = 600
+  cleanup_on_fail = true
+
 
   depends_on = [helm_release.nginx]
 
@@ -36,10 +37,25 @@ resource "helm_release" "external_dns" {
 
   create_namespace = true
   namespace        = "external-dns"
-  
+
 
   values = [file("${path.module}/../../helm-values/external-dns.yaml")]
 
+}
+
+resource "helm_release" "argo_cd" {
+  name = "argo-cd"
+
+  repository = "https://argoproj.github.io/argo-helm"
+  chart      = "argo-cd"
+  version    = "7.7.11"
+
+  create_namespace = true
+  namespace        = "argo-cd"
+
+  values = [file("${path.module}/../../helm-values/argo-cd.yaml")]
+
+  depends_on = [helm_release.cert_manager]
 
 }
 

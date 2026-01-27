@@ -1,8 +1,3 @@
-resource "aws_eks_addon" "pod_identity" {
-  cluster_name = var.cluster_name
-  addon_name   = "eks-pod-identity-agent"
-}
-
 data "aws_iam_policy_document" "assume_role" {
   statement {
     effect = "Allow"
@@ -40,7 +35,6 @@ resource "aws_eks_pod_identity_association" "cert-manager" {
   service_account = "cert-manager"
   role_arn        = aws_iam_role.cert_manager_role.arn
 
-  depends_on = [aws_eks_addon.pod_identity]
 }
 
 resource "aws_iam_role" "external_dns_role" {
@@ -64,7 +58,6 @@ resource "aws_eks_pod_identity_association" "external_dns" {
   service_account = "external-dns"
   role_arn        = aws_iam_role.external_dns_role.arn
 
-  depends_on = [aws_eks_addon.pod_identity]
 }
 
 
