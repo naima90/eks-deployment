@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eks-app
+  labels:
+    app: eks-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: eks-app
+  template:
+    metadata:
+      labels:
+        app: eks-app
+    spec:
+      containers:
+        - name: eks-app
+          image: 751434576197.dkr.ecr.eu-west-2.amazonaws.com/eks-app
+          ports: 80
+            - containerPort: 80
+              name: http
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
