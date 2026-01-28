@@ -14,10 +14,10 @@ resource "helm_release" "cert_manager" {
   repository = "https://charts.jetstack.io"
   chart      = "cert-manager"
 
+
   create_namespace = true
   namespace        = "cert-manager"
 
-  atomic  = true
   wait    = true
   timeout = 600
   cleanup_on_fail = true
@@ -34,6 +34,7 @@ resource "helm_release" "external_dns" {
 
   repository = "https://kubernetes-sigs.github.io/external-dns/"
   chart      = "external-dns"
+  version          = "1.15.0"
 
   create_namespace = true
   namespace        = "external-dns"
