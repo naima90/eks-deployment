@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: eks-app-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: issuer
+    external-dns.alpha.kubernetes.io/hostname: eks.lab.naimaosmann.com
+spec:
+  tls:
+    - hosts:
+        - eks.lab.naimaosmann.com
+      secretName: eks-app-tls
+  rules:
+    - host: eks.lab.naimaosmann.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: eks-app-service
+                port:
+                  number: 80

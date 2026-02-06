@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: eks-app
+  name: argocd-app
   namespace: argo-cd
 spec:
   project: default
@@ -11,7 +11,7 @@ spec:
     path: infra/kubernetes
   destination:
     server: https://kubernetes.default.svc
-    namespace: eks-app
+    namespace: default
   syncPolicy:
     automated:
       prune: true

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: eks-app
+  name: eks-app-deployment
   labels:
     app: eks-app
 spec:
@@ -15,7 +15,7 @@ spec:
         app: eks-app
     spec:
       containers:
-        - name: eks-app
+        - name: eks-app-img
           image: 751434576197.dkr.ecr.eu-west-2.amazonaws.com/eks-app:latest
           ports:
             - containerPort: 80
