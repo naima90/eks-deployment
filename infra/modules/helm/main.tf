@@ -60,3 +60,18 @@ resource "helm_release" "argo_cd" {
 
 }
 
+resource "helm_release" "prometheus" {
+  name = "prometheus"
+
+  repository = "https://prometheus-community.github.io/helm-charts"
+  chart = "prometheus"
+  version = "28.6.0"
+
+  create_namespace = true
+  namespace        = "monitoring"
+
+  cleanup_on_fail = true
+
+  values = [file("${path.module}/../../helm-values/prometheus.yaml")]
+}
+
