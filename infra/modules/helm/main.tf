@@ -75,3 +75,17 @@ resource "helm_release" "prometheus" {
   values = [file("${path.module}/../../helm-values/prometheus.yaml")]
 }
 
+resource "helm_release" "grafana" {
+  name = "grafana"
+  namespace        = "monitoring"
+
+  repository = "https://grafana-community.github.io/helm-charts"
+  chart = "grafana"
+  version = "9.4.5"
+
+
+  cleanup_on_fail = true
+
+  values = [file("${path.module}/../../helm-values/grafana.yaml")]
+}
+
