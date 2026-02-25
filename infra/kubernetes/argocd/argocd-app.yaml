@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/naima90/eks-deployment.git
     targetRevision: main
-    path: ../app
+    path: infra/kubernetes/app
   destination:
     server: https://kubernetes.default.svc
     namespace: default
