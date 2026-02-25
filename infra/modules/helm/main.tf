@@ -18,8 +18,8 @@ resource "helm_release" "cert_manager" {
   create_namespace = true
   namespace        = "cert-manager"
 
-  wait    = true
-  timeout = 600
+  wait            = true
+  timeout         = 600
   cleanup_on_fail = true
 
 
@@ -34,13 +34,10 @@ resource "helm_release" "external_dns" {
 
   repository = "https://kubernetes-sigs.github.io/external-dns/"
   chart      = "external-dns"
-  version          = "1.15.0"
+  version    = "1.15.0"
 
   create_namespace = true
   namespace        = "external-dns"
-
-
-  values = [file("${path.module}/../../helm-values/external-dns.yaml")]
 
 }
 
@@ -57,15 +54,14 @@ resource "helm_release" "argo_cd" {
   values = [file("${path.module}/../../helm-values/argo-cd.yaml")]
 
   depends_on = [helm_release.cert_manager]
-
 }
 
 resource "helm_release" "prometheus" {
   name = "prometheus"
 
   repository = "https://prometheus-community.github.io/helm-charts"
-  chart = "prometheus"
-  version = "28.6.0"
+  chart      = "prometheus"
+  version    = "28.6.0"
 
   create_namespace = true
   namespace        = "monitoring"
@@ -76,12 +72,12 @@ resource "helm_release" "prometheus" {
 }
 
 resource "helm_release" "grafana" {
-  name = "grafana"
-  namespace        = "monitoring"
+  name      = "grafana"
+  namespace = "monitoring"
 
   repository = "https://grafana-community.github.io/helm-charts"
-  chart = "grafana"
-  version = "9.4.5"
+  chart      = "grafana"
+  version    = "9.4.5"
 
 
   cleanup_on_fail = true
@@ -90,4 +86,5 @@ resource "helm_release" "grafana" {
 
   depends_on = [helm_release.prometheus]
 }
+
 
