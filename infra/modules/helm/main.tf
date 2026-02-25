@@ -87,5 +87,7 @@ resource "helm_release" "grafana" {
   cleanup_on_fail = true
 
   values = [file("${path.module}/../../helm-values/grafana.yaml")]
+
+  depends_on = [helm_release.prometheus]
 }
 
