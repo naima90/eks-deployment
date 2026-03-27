@@ -72,8 +72,7 @@ jobs:
       - name: Terraform Plan
         run: |
           echo "Running terraform plan..."
-          terraform plan -var-file="terraform.tfvars" -input=false -out=tfplan 
-          continue-on-error: false
+          terraform plan -var-file="terraform.tfvars" -input=false -out=tfplan
 
       - name: Plan Summary
         run: |
