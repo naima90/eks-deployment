@@ -18,6 +18,9 @@ resource "aws_s3_bucket_versioning" "terraform_state" {
 resource "aws_ecr_repository" "app" {
   name                 = var.project_name
   image_tag_mutability = "MUTABLE"
+  image_scanning_configuration {
+    scan_on_push = true
+    }
   force_delete         = true
 
   tags = {
