@@ -74,6 +74,12 @@ jobs:
           echo "Running terraform plan..."
           terraform plan -var-file="terraform.tfvars" -input=false -out=tfplan
 
+      - name: Upload Plan
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          path: ${{ env.TF_WORKING_DIR }}/tfplan
+
       - name: Plan Summary
         run: |
           echo "Terraform plan created successfully"
