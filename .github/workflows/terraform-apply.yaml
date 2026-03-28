@@ -1,7 +1,12 @@
 name: Terraform Apply
 
 on:
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["Terraform Plan"]
+    types:
+      - completed
+    branches:
+      - main
 
 permissions:
   id-token: write
@@ -36,10 +41,12 @@ jobs:
         run: terraform init -input=false
 
       - name: Download Plan
-        uses: actions/download-artifact@v4
+        uses: dawidd6/actions/download-artifact@v6
         with:
+          workflow: terraform-plan.yaml
           name: tfplan
           path: ${{ env.TF_WORKING_DIR }}
+          workflow_conclusion: success
 
       - name: Terraform Apply
         run: terraform apply -input=false -auto-approve tfplan
