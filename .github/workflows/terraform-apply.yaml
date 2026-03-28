@@ -41,7 +41,7 @@ jobs:
         run: terraform init -input=false
 
       - name: Download Plan
-        uses: dawidd6/actions/download-artifact@v6
+        uses: dawidd6/action-download-artifact@v6
         with:
           workflow: terraform-plan.yaml
           name: tfplan
