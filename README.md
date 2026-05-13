@@ -75,3 +75,50 @@ eks-deployment/
 ```
 
 ---
+
+## Local Setup
+
+### Prerequisites
+
+- AWS CLI configured (`aws configure`)
+- Terraform >= 1.5
+- kubectl
+- Helm 3
+- Docker
+
+### 1. Bootstrap Remote State & ECR
+
+Before provisioning infrastructure, run the bootstrap to create the S3 bucket (remote state), DynamoDB table (state locking), and ECR repository.
+
+```bash
+cd bootstrap
+terraform init
+terraform apply
+```
+
+### 2. Provision Infrastructure
+
+```bash
+cd infra
+terraform init
+terraform plan
+terraform apply
+```
+
+### 3. Configure kubectl
+
+```bash
+aws eks update-kubeconfig --region <region> --name <cluster-name>
+```
+
+### 4. Bootstrap Cluster Components
+
+Helm is installed as part of the cluster. All required Helm values files are located in `infra/`. Once the cluster is running, apply the component installations:
+
+### 5. Run the App Locally
+
+```bash
+docker build -t eks-app .
+docker run -p 8080:80 eks-app
+# Visit http://localhost:8080
+```
