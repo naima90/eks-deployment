@@ -42,6 +42,8 @@ These tools collectively enable a modern DevOps approach, ensuring the applicati
 
 ## Architecture
 
+![Architecture Diagram](images/architecture-diagram.png)
+
 ---
 
 ## Architecture Features
@@ -122,3 +124,5 @@ docker build -t eks-app .
 docker run -p 8080:80 eks-app
 # Visit http://localhost:8080
 ```
+
+![Application](images/eks-app.png)
