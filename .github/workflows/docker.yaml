@@ -43,14 +43,14 @@ jobs:
       - name: Build image
         run: docker build -t ${{ steps.meta.outputs.tag }} .
 
-      - name: Trivy scan
-        uses: aquasecurity/trivy-action@master
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ steps.meta.outputs.tag }}
-          format: sarif
-          output: trivy-results.sarif
+          format: table
           exit-code: '1'
           severity: HIGH,CRITICAL
+          scanners: vuln
 
       - name: Upload Trivy scan results
         if: always()
