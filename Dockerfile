@@ -1,8 +1,9 @@
-FROM nginx:1.31.1-alpine3.23
+FROM nginx:1.31.1-alpine-slim
 
 WORKDIR /app
 
-RUN rm -rf /usr/share/nginx/html/*
+RUN apk upgrade --no-cache \
+    && rm -rf /usr/share/nginx/html/*
 
 COPY /app /usr/share/nginx/html
 
