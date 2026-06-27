@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: eks-app-img
-          image: 751434576197.dkr.ecr.eu-west-2.amazonaws.com/eks-app:782d7d01
+          image: 751434576197.dkr.ecr.eu-west-2.amazonaws.com/eks-app:99dc68f0
           ports:
             - containerPort: 80
               name: http
@@ -35,7 +35,6 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "500m"
-
         - name: nginx-exporter
           image: nginx/nginx-prometheus-exporter:1.3.0
           args:
@@ -50,9 +49,7 @@ spec:
             limits:
               memory: "64Mi"
               cpu: "100m"
-
       volumes:
         - name: nginx-conf
           configMap:
             name: eks-app-nginx-conf
-
