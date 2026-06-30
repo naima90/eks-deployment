@@ -46,10 +46,6 @@ These tools collectively enable a modern DevOps approach, ensuring the applicati
 
 ---
 
-## Architecture Features
-
----
-
 ## Directory Structure
 
 ```
@@ -126,3 +122,4 @@ docker run -p 8080:80 eks-app
 ```
 
 ![Application](images/eks-app.png)
+![Observibility](images/grafana.png)
